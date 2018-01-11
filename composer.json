@@ -1,0 +1,23 @@
+{
+  "name": "yevgeniy.skulditskiy/cash-machine",
+  "type": "project",
+  "disable-tls": true,
+  "authors": [
+    {
+        "name": "Yevgeniy Skulditskiy",
+        "email": "skulditsky@gmail.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "slim/slim": "^3.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "CashMachine\\": "src/"
+    }
+  }
+}
