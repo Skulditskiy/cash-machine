@@ -4,11 +4,27 @@ namespace CashMachine\Domain\CashMachine;
 
 class WithdrawService implements WithdrawServiceInterface
 {
+    const AVAILABLE_BANKNOTES = [100, 50, 20, 10];
+
     /**
      * @inheritdoc
      */
     public function getBanknotesByAmount(int $amount): array
     {
-        // TODO: Implement getBanknotesByAmount() method.
+        if ($amount < 0) {
+            throw new \InvalidArgumentException();
+        }
+
+        $result = [];
+        foreach (self::AVAILABLE_BANKNOTES as $banknote) {
+            $result[$banknote] = intdiv($amount, $banknote);
+            $amount = $amount % $banknote;
+        }
+
+        if ($amount > 0) {
+            throw new NoteUnavailableException();
+        }
+
+        return $result;
     }
 }
