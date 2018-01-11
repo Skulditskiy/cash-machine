@@ -26,6 +26,18 @@ curl -X POST \
 ```
 In case of invalid request API response with "400 Bad request" with basic description of problem
 
+## Example API response
+If you asked CashMachine for withdrawing of $580, then you expect to have:
+```
+{
+    "10": 1,
+    "20": 1,
+    "50": 1,
+    "100": 5
+}
+```
+which means that you will receive 5x$100, 1x$50, 1x$20, 1x$10.
+
 ## UI demo
 
 ![app screen](https://habrastorage.org/webt/eb/j8/1q/ebj81qdnrxfrhvytczpudplqqb4.png)
