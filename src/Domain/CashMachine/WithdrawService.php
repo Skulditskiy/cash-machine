@@ -7,7 +7,10 @@ class WithdrawService implements WithdrawServiceInterface
     const AVAILABLE_BANKNOTES = [100, 50, 20, 10];
 
     /**
-     * @inheritdoc
+     * @param int $amount
+     * @return array
+     * @throws \InvalidArgumentException
+     * @throws NoteUnavailableException
      */
     public function getBanknotesByAmount(int $amount): array
     {
@@ -28,3 +31,4 @@ class WithdrawService implements WithdrawServiceInterface
         return $result;
     }
 }
+

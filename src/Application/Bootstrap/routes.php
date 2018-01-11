@@ -6,3 +6,10 @@ $application->post(
 
     }
 );
+
+$application->get(
+    '/',
+    function (\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http\Message\ResponseInterface $response) use ($container) {
+
+    }
+);

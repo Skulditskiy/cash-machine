@@ -1,7 +1,19 @@
-<phpunit>
+<phpunit bootstrap="../../vendor/autoload.php" colors="true">
     <testsuites>
         <testsuite>
-            <directory>tests</directory>
+            <directory>../../tests</directory>
         </testsuite>
     </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">../../src</directory>
+            <exclude>
+                <directory suffix=".php">../../src/Application/Bootstrap</directory>
+                <directory suffix=".php">../../src/Application/Console</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
+    </logging>
 </phpunit>

@@ -2,15 +2,21 @@
 <?php
 
 require dirname(dirname(dirname(__DIR__))) . '/vendor/autoload.php';
-
+require dirname(dirname(dirname(__DIR__))) . '/src/Application/Bootstrap/dependencies.php';
 use Symfony\Component\Console\Application;
 
-$application = new Application();
-
-// ... register commands
+$consoleApplication = new Application();
 
 try {
-    $application->run();
+    $consoleApplication->add(
+        $application->getContainer()->get(\CashMachine\Application\Bootstrap\DiKeys::WITHDRAW_COMMAND)
+    );
+} catch (\Psr\Container\NotFoundExceptionInterface $e) {
+} catch (\Psr\Container\ContainerExceptionInterface $e) {
+}
+
+try {
+    $consoleApplication->run();
 } catch (\Exception $exception) {
     return -1;
 }
