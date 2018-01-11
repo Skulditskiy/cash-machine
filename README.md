@@ -13,10 +13,15 @@ Add nginx vhost and reload nginx
 
 ## Example CLI request
 ```
-php src/Console/app.php ......
+php src\Application\Console\cli.php cashMachine:withdraw 1450
 ```
 
 ## Example API request 
 ``` 
-post
+curl -X POST \
+  http://local.cashmachine.com/cashMachine/withdraw \
+  -H 'Cache-Control: no-cache' \
+  -H 'Content-Type: application/json' \
+  -d '{"amount": 10560}'
 ```
+In case of invalid request API response with "400 Bad request" with basic description of problem
