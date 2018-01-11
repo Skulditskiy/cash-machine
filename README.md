@@ -25,3 +25,10 @@ curl -X POST \
   -d '{"amount": 10560}'
 ```
 In case of invalid request API response with "400 Bad request" with basic description of problem
+
+## UI demo
+
+![app screen](https://habrastorage.org/webt/eb/j8/1q/ebj81qdnrxfrhvytczpudplqqb4.png)
+
+Open http://local.cashmachine.com/ for taking look how API endpoint works with UI in React. 
+No transpilers and npm/node/webpack needed, but JS part written using ES6, so please use modern browser.

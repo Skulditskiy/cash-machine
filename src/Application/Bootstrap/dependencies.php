@@ -26,4 +26,17 @@ $container[\CashMachine\Application\Bootstrap\DiKeys::WITHDRAW_CONTROLLER] = fun
     );
 };
 
+$container[\CashMachine\Application\Bootstrap\DiKeys::VIEW] = function (\Slim\Container $container) {
+    $view = new \Slim\Views\Twig(
+        PROJECT_PATH . '/views',
+        []
+    );
+    $view->addExtension(new Slim\Views\TwigExtension($container->get(\CashMachine\Application\Bootstrap\DiKeys::ROUTER), '/'));
+    return $view;
+};
+
+$container[\CashMachine\Application\Bootstrap\DiKeys::INDEX_CONTROLLER] = function () {
+    return new \CashMachine\Application\Controllers\IndexController();
+};
+
 $application = new \Slim\App($container);

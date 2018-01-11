@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Demo Cash Mashine App</title>
+    <script src="https://unpkg.com/react@16.0.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.0.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script>
+
+
+
+        function showWithdrawResult(withdrawData) {
+            console.log(withdrawData);
+            if (typeof(withdrawData.data) !== "undefined") {
+                this.setState({
+                    banknote100: withdrawData.data['100'],
+                    banknote50: withdrawData.data['50'],
+                    banknote20: withdrawData.data['20'],
+                    banknote10: withdrawData.data['10']
+                });
+            } else {
+                this.setState({
+                    banknote100: 0,
+                    banknote50: 0,
+                    banknote20: 0,
+                    banknote10: 0
+                });
+            }
+        }
+
+        class AmountInput extends React.Component {
+
+            constructor(props) {
+                super(props);
+            }
+
+            getWithdrawResult(event) {
+                let inputValue = event.target.value;
+                axios.post('/cashMachine/withdraw', {
+                    amount: inputValue
+                })
+                .then(function (response) {
+                    showWithdrawResult(response);
+                })
+                .catch(function (error) {
+                    showWithdrawResult([]);
+                });
+            }
+
+            render() {
+                return React.createElement('input', {className: "amountInputElement", placeholder: "Input amount of money", onChange: this.getWithdrawResult.bind(this)}, null)
+            }
+        }
+
+        class ResultDisplay extends React.Component {
+
+            constructor(props) {
+                super(props);
+                this.state = {
+                    banknote100: 0,
+                    banknote50: 0,
+                    banknote20: 0,
+                    banknote10: 0
+                };
+                showWithdrawResult = showWithdrawResult.bind(this);
+            }
+
+            render() {
+                return React.createElement(
+                    'div',
+                    {className: "resultDisplayDiv"},
+                    React.createElement(
+                        'div',
+                        {className: "result100"},
+                        '100 dollar bill: ' + this.state.banknote100 + ' pcs'
+                    ),
+                    React.createElement(
+                        'div',
+                        {className: "result50"},
+                        '50 dollar bill: ' + this.state.banknote50 + ' pcs'
+                    ),
+                    React.createElement(
+                        'div',
+                        {className: "result20"},
+                        '20 dollar bill: ' + this.state.banknote20 + ' pcs'
+                    ),
+                    React.createElement(
+                        'div',
+                        {className: "result10"},
+                        '10 dollar bill: ' + this.state.banknote10 + ' pcs'
+                    )
+                );
+            }
+        }
+
+        class CashMachine extends React.Component {
+            render() {
+                return React.createElement(
+                    'div',
+                    {className: "cashMachine"},
+                    React.createElement(AmountInput, {className: "amountInput"}, null),
+                    React.createElement(ResultDisplay, {className: "resultDisplay"}, null)
+                );
+            }
+        }
+
+        ReactDOM.render(
+            React.createElement(CashMachine, {toWhat: 'World'}, null),
+            document.getElementById('root')
+        );
+    </script>
+    <style>
+        .cashMachine {
+            width: 600px;
+            margin: 50px auto;
+            border-radius: 20px;
+            border: 5px solid rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        .amountInputElement {
+            width: 400px;
+            font-size: 36px;
+            display: block;
+            margin: 10px auto;
+        }
+        .resultDisplayDiv > div {
+            text-align: center;
+            font-size: 22px;
+        }
+    </style>
+</body>
+</html>

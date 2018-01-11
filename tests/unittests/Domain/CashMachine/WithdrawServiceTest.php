@@ -31,4 +31,35 @@ class WithdrawServiceTest extends TestCase
             [[100 => 1, 50 => 0, 20 => 1, 10 => 1], 130]
         ];
     }
+
+    /**
+     * @test
+     * @expectedException \CashMachine\Domain\CashMachine\NoteUnavailableException
+     */
+    public function getBanknotesByAmount_withUnreachableAmount_test()
+    {
+        // prepare
+        $classUnderTest = new WithdrawService();
+
+        // test
+        $classUnderTest->getBanknotesByAmount(123);
+
+        // verified by test declaration
+    }
+
+    /**
+     * @test
+     * @expectedException \InvalidArgumentException
+     */
+    public function getBanknotesByAmount_withInvalidAmount_test()
+    {
+        // prepare
+        $classUnderTest = new WithdrawService();
+
+        // test
+        $classUnderTest->getBanknotesByAmount(-1.5);
+
+        // verified by test declaration
+    }
+
 }
